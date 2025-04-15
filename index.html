@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css" />
-  <title>Pokédex</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex Aventura</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Pokédex</h1>
-    <input type="text" id="search" placeholder="Buscar Pokémon..." />
-    <select id="typeFilter">
-      <option value="">Todos los tipos</option>
-    </select>
-    <button id="toggleDark">🌙</button>
+    <nav>
+      <button onclick="showPokedex()">Pokédex</button>
+      <button onclick="showExplore()">Explorar</button>
+    </nav>
   </header>
-  
-  <main id="pokemonList"></main>
-  
-  <div id="pokemonModal" class="modal hidden">
-    <div class="modal-content" id="modalContent"></div>
-  </div>
+
+  <main>
+    <section id="pokedexView" class="view">
+      <div id="pokedex" class="grid"></div>
+    </section>
+
+    <section id="exploreView" class="view hidden">
+      <div id="encounter">
+        <h2>¡Un pokémon salvaje apareció!</h2>
+        <img id="wildImage" src="" alt="Pokemon">
+        <p id="wildName"></p>
+        <button onclick="throwPokeball()">Lanzar Poké Ball</button>
+        <p id="captureResult"></p>
+      </div>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
