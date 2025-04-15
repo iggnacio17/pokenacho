@@ -73,7 +73,7 @@ function startMinigame() {
     ctx.fillRect(pos, 0, 5, 30);
 
     if (pos >= 195 || pos <= 0) dir *= -1;
-    pos += dir * 2;
+    pos += dir * 1;
     animationId = requestAnimationFrame(draw);
   }
 
