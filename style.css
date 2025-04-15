@@ -55,3 +55,9 @@ button {
   height: 80px;
   image-rendering: pixelated;
 }
+#captureCanvas {
+  border: 2px solid #333;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
