@@ -5,6 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokédex Aventura</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background: #ef5350;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .view { display: none; padding: 20px; }
+    .active { display: block; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 10px;
+    }
+    .pokemon-card {
+      background: white;
+      border-radius: 5px;
+      text-align: center;
+      padding: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    #wildImage {
+      width: 120px;
+      height: 120px;
+    }
+    #captureCanvas {
+      border: 2px solid #333;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,7 +62,7 @@
       <div id="pokedex" class="grid"></div>
     </section>
 
-    <section id="exploreView" class="view hidden">
+    <section id="exploreView" class="view">
       <div id="encounter">
         <h2>¡Un Pokémon salvaje apareció!</h2>
         <img id="wildImage" src="" alt="Pokemon">
@@ -85,8 +127,8 @@
       const ctx = canvas.getContext("2d");
       let pos = 0;
       let dir = 1;
-      const successStart = 60;
-      const successEnd = 120;
+      const successStart = 70;
+      const successEnd = 130;
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -95,7 +137,7 @@
         ctx.fillStyle = "red";
         ctx.fillRect(pos, 0, 5, 30);
         if (pos >= 195 || pos <= 0) dir *= -1;
-        pos += dir * 3;
+        pos += dir * 0.5; // 🔵 velocidad reducida drásticamente
         animationId = requestAnimationFrame(draw);
       }
 
@@ -117,7 +159,7 @@
       };
     }
 
-    // Cargar al iniciar
+    // Iniciar en Pokédex
     showPokedex();
   </script>
 </body>
