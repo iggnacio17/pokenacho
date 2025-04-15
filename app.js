@@ -1,5 +1,9 @@
-const TOTAL_POKEMON = 151; // puedes cambiar a 1025 para todas las generaciones
+const TOTAL_POKEMON = 151;
 let captured = JSON.parse(localStorage.getItem("captured")) || [];
+let wildId = null;
+let successZoneStart = 30;
+let successZoneEnd = 70;
+let animationId;
 
 function showPokedex() {
   document.getElementById("pokedexView").classList.add("active");
@@ -22,12 +26,9 @@ function renderPokedex() {
     card.className = "pokemon-card";
 
     const img = document.createElement("img");
-
-    if (captured.includes(i)) {
-      img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`;
-    } else {
-      img.src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"; // silueta negra
-    }
+    img.src = captured.includes(i)
+      ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`
+      : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
 
     const name = document.createElement("p");
     name.textContent = captured.includes(i) ? `#${i}` : "???";
@@ -38,27 +39,61 @@ function renderPokedex() {
   }
 }
 
-let wildId = null;
-
 function loadWildPokemon() {
   wildId = Math.floor(Math.random() * TOTAL_POKEMON) + 1;
-  const img = document.getElementById("wildImage");
-  const name = document.getElementById("wildName");
-  img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${wildId}.png`;
-  name.textContent = "???";
+  document.getElementById("wildImage").src =
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${wildId}.png`;
+  document.getElementById("wildName").textContent = "???";
   document.getElementById("captureResult").textContent = "";
+  startMinigame();
 }
 
-function throwPokeball() {
-  const chance = Math.random();
-  if (chance <= 0.5) {
-    if (!captured.includes(wildId)) {
-      captured.push(wildId);
-      localStorage.setItem("captured", JSON.stringify(captured));
-    }
-    document.getElementById("wildName").textContent = `¡Capturado! #${wildId}`;
-    document.getElementById("captureResult").textContent = "¡Pokémon atrapado!";
-  } else {
-    document.getElementById("captureResult").textContent = "¡El Pokémon escapó!";
+// Mini-juego: barra de precisión
+function startMinigame() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 200;
+  canvas.height = 30;
+  canvas.id = "captureCanvas";
+  document.getElementById("captureResult").innerHTML = "";
+  document.getElementById("captureResult").appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  let pos = 0;
+  let dir = 1;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Zona verde
+    ctx.fillStyle = "green";
+    ctx.fillRect(successZoneStart, 0, successZoneEnd - successZoneStart, 30);
+
+    // Indicador
+    ctx.fillStyle = "red";
+    ctx.fillRect(pos, 0, 5, 30);
+
+    if (pos >= 195 || pos <= 0) dir *= -1;
+    pos += dir * 2;
+    animationId = requestAnimationFrame(draw);
   }
+
+  draw();
+
+  canvas.onclick = () => {
+    cancelAnimationFrame(animationId);
+    if (pos >= successZoneStart && pos <= successZoneEnd) {
+      // Captura exitosa
+      if (!captured.includes(wildId)) {
+        captured.push(wildId);
+        localStorage.setItem("captured", JSON.stringify(captured));
+      }
+      document.getElementById("wildName").textContent = `¡Capturado! #${wildId}`;
+      document.getElementById("captureResult").innerHTML = "<p>¡Éxito! Capturaste al Pokémon 🎉</p>";
+    } else {
+      document.getElementById("captureResult").innerHTML = "<p>¡Fallaste! El Pokémon escapó 😢</p>";
+    }
+
+    // Pasar al siguiente Pokémon después de 1.5 segundos
+    setTimeout(loadWildPokemon, 1500);
+  };
 }
