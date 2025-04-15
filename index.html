@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+  <title>Pokédex</title>
+</head>
+<body>
+  <header>
+    <h1>Pokédex</h1>
+    <input type="text" id="search" placeholder="Buscar Pokémon..." />
+    <select id="typeFilter">
+      <option value="">Todos los tipos</option>
+    </select>
+    <button id="toggleDark">🌙</button>
+  </header>
+  
+  <main id="pokemonList"></main>
+  
+  <div id="pokemonModal" class="modal hidden">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
