@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis Equipos Pokémon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🛡️ Equipos Pokémon</h1>
+    <div class="header-buttons">
+      <button onclick="toggleTheme()">🌓</button>
+      <a href="index.html">🏠 Inicio</a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <section id="new-team-section">
+      <h2>Crear Nuevo Equipo</h2>
+      <input type="text" id="team-name-input" placeholder="Nombre del equipo" maxlength="20" />
+      <button onclick="createTeam()">Crear Equipo</button>
+    </section>
+
+    <section id="teams-list-section">
+      <h2>Mis Equipos</h2>
+      <div id="teams-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
