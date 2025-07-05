@@ -1,63 +1,290 @@
+:root {
+  --bg: #f9f9f9;
+  --text: #111;
+  --card: white;
+  --highlight: #ff5e57;
+  --type-normal: #A8A77A;
+  --type-fire: #EE8130;
+  --type-water: #6390F0;
+  --type-electric: #F7D02C;
+  --type-grass: #7AC74C;
+  --type-ice: #96D9D6;
+  --type-fighting: #C22E28;
+  --type-poison: #A33EA1;
+  --type-ground: #E2BF65;
+  --type-flying: #A98FF3;
+  --type-psychic: #F95587;
+  --type-bug: #A6B91A;
+  --type-rock: #B6A136;
+  --type-ghost: #735797;
+  --type-dragon: #6F35FC;
+  --type-dark: #705746;
+  --type-steel: #B7B7CE;
+  --type-fairy: #D685AD;
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #fff;
+  --card: #1e1e1e;
+  --highlight: #f06292;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f0f0;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
 }
 
 header {
-  background: #ef5350;
-  color: white;
   padding: 1rem;
+  background: var(--card);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-nav {
-  margin-top: 1rem;
+header h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--highlight);
+  font-weight: bold;
+}
+
+.main-container {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-box {
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card-box img {
+  width: 100%;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
 button {
-  margin: 0.5rem;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #42a5f5;
+  background-color: var(--highlight);
   color: white;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
   cursor: pointer;
-}
-
-.view {
-  display: none;
-  padding: 1rem;
-}
-
-.view.active {
+  font-size: 1rem;
+  margin: 0.5rem auto;
   display: block;
+  width: 90%;
+  max-width: 300px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button.danger {
+  background-color: #d32f2f;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
   margin-top: 1rem;
+  width: 100%;
+  max-width: 960px;
 }
 
-.pokemon-card {
-  background: #fff;
-  padding: 0.5rem;
+.card {
+  background: var(--card);
   border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.pokemon-card img {
-  width: 80px;
-  height: 80px;
-  image-rendering: pixelated;
-}
-#captureCanvas {
-  border: 2px solid #333;
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
   margin-top: 10px;
-  cursor: pointer;
 }
 
+.card-name {
+  font-weight: bold;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.card-types {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.type {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.7rem;
+  text-transform: capitalize;
+}
+
+/* Colores para tipos */
+.type-normal { background-color: var(--type-normal); }
+.type-fire { background-color: var(--type-fire); }
+.type-water { background-color: var(--type-water); }
+.type-electric { background-color: var(--type-electric); }
+.type-grass { background-color: var(--type-grass); }
+.type-ice { background-color: var(--type-ice); }
+.type-fighting { background-color: var(--type-fighting); }
+.type-poison { background-color: var(--type-poison); }
+.type-ground { background-color: var(--type-ground); }
+.type-flying { background-color: var(--type-flying); }
+.type-psychic { background-color: var(--type-psychic); }
+.type-bug { background-color: var(--type-bug); }
+.type-rock { background-color: var(--type-rock); }
+.type-ghost { background-color: var(--type-ghost); }
+.type-dragon { background-color: var(--type-dragon); }
+.type-dark { background-color: var(--type-dark); }
+.type-steel { background-color: var(--type-steel); }
+.type-fairy { background-color: var(--type-fairy); }
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--highlight);
+  margin-bottom: 0.5rem;
+}
+
+/* Stats container */
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  background-color: var(--highlight);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-weight: bold;
+  font-size: 0.8rem;
+  min-width: 55px;
+  text-align: center;
+}
+
+/* Equipos */
+.team-container {
+  border: 1px solid var(--highlight);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--card);
+  max-width: 600px;
+  width: 90%;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.team-pokemons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-pokemon-card {
+  width: 80px;
+  text-align: center;
+}
+
+.team-pokemon-card img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* Responsivo */
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-buttons {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    padding: 0 1rem;
+  }
+
+  .card-box {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .card img {
+    height: 120px;
+    margin-top: 5px;
+  }
+}
